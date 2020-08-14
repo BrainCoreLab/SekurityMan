@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="eman3617_skm@eman.live" uuid="39cc2737-a69b-47fe-98af-d3d9f1b53bd1">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://eman.live:3306/eman3617_skm</jdbc-url>
+    </data-source>
+  </component>
+</project>

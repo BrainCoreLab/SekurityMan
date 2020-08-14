@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cf09afdf-decb-4dbe-aff1-b7c1d76b6fb3" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1g41RdNInUQSkn34OuSKJ9wSLnX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mariadb" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf09afdf-decb-4dbe-aff1-b7c1d76b6fb3" name="Default Changelist" comment="" />
+      <created>1597359044759</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597359044759</updated>
+      <workItem from="1597359046115" duration="13612000" />
+      <workItem from="1597416054292" duration="5788000" />
+      <workItem from="1597429977472" duration="5098000" />
+      <workItem from="1597444678703" duration="382000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597365813745">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state x="440" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597365813745" />
+    <state x="440" y="206" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1597424671302">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state x="440" y="206" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597424671302" />
+    <state width="1126" height="260" key="GridCell.Tab.0.bottom" timestamp="1597375263543">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state width="1126" height="260" key="GridCell.Tab.0.bottom/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597375263543" />
+    <state width="1126" height="260" key="GridCell.Tab.0.center" timestamp="1597375263542">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state width="1126" height="260" key="GridCell.Tab.0.center/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597375263542" />
+    <state width="1126" height="260" key="GridCell.Tab.0.left" timestamp="1597375263541">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state width="1126" height="260" key="GridCell.Tab.0.left/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597375263541" />
+    <state width="1126" height="260" key="GridCell.Tab.0.right" timestamp="1597375263543">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state width="1126" height="260" key="GridCell.Tab.0.right/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597375263543" />
+    <state x="580" y="239" key="NewPhpClassDialog" timestamp="1597366644674">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state x="580" y="239" key="NewPhpClassDialog/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597366644674" />
+    <state x="341" y="145" key="SettingsEditor" timestamp="1597429578023">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state x="341" y="145" key="SettingsEditor/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597429578023" />
+    <state x="702" y="264" width="919" height="548" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1597373970247">
+      <screen x="0" y="23" width="1680" height="967" />
+    </state>
+    <state x="702" y="264" width="919" height="548" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.23.1680.967/1680.23.1600.877/120.-1777.3200.1777@0.23.1680.967" timestamp="1597373970247" />
+  </component>
+</project>
