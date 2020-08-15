@@ -42,6 +42,7 @@ class bccore {
                 localStorage.setItem('ids',r.ids)
                 localStorage.setItem('name',r.name)
                 localStorage.setItem('id',r.id)
+                localStorage.setItem('lv',r.lv)
                 location.href = url;
 
             }
@@ -59,27 +60,135 @@ class bccore {
 
     }
 
-    menuside(){
+    menuside(a){
 
         const ac = new bccore();
 
-        $('.lg-go').click(function () {
+        if(a=='lg') {
+            $('.lg-go').click(function () {
 
-            console.log('Login Go')
+                console.log('Login Go')
 
-            var us=$('.us').val()
-            var ps=$('.ps').val()
+                var us = $('.us').val()
+                var ps = $('.ps').val()
 
-            if( !us || !ps ) {
+                if (!us || !ps) {
 
-                ac.bchidden('#warning-field',2)
-                $('#warning-field').empty()
-                $('#warning-field').append('<p class="text-danger">Valide sus datos!</p>')
-                return false
-            }
-            ac.login(us,ps,'panel.html')
-        })
+                    ac.bchidden('#warning-field', 2)
+                    $('#warning-field').empty()
+                    $('#warning-field').append('<p class="text-danger">Valide sus datos!</p>')
+                    return false
+                }
+                ac.login(us, ps, 'panel.html')
+            })
+        }
 
+        if(a=='panel') {
+
+            var lv=parseInt(localStorage.getItem('lv'))
+
+            $('#menucore').empty()
+            $('#menucore').append('<li class="menu">\n' +
+                '                        <a href="#dashboard" data-active="true" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">\n' +
+                '                            <div class="">\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>\n' +
+                '                                <span>Dashboard</span>\n' +
+                '                            </div>\n' +
+                '                            <div>\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                        <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#menucore">\n' +
+                '                            <li class="active">\n' +
+                '                                <a href="javascript:void(0)"> Visitas </a>\n' +
+                '                            </li>\n' +
+                '                            <li>\n' +
+                '                                <a href="javascript:void(0)"> Visitantes </a>\n' +
+                '                            </li>\n' +
+                '                        </ul>\n' +
+                '                    </li>\n' +
+                '                    <li class="menu">\n' +
+                '                        <a href="#fotos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">\n' +
+                '                            <div class="">\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>\n' +
+                '                                <span>Fotos</span>\n' +
+                '                            </div>\n' +
+                '                            <div>\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                        <ul class="collapse submenu list-unstyled" id="fotos" data-parent="#menucore">\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Perfiles</a>\n' +
+                '                            </li>\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Termicas</a>\n' +
+                '                            </li>\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Documentos</a>\n' +
+                '                            </li>\n' +
+                '                        </ul>\n' +
+                '                    </li>\n' +
+                '                    <li class="menu">\n' +
+                '                        <a href="#reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">\n' +
+                '                            <div class="">\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>\n' +
+                '                                <span>Reportes</span>\n' +
+                '                            </div>\n' +
+                '                            <div>\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                        <ul class="collapse submenu list-unstyled" id="reports" data-parent="#menucore">\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">General</a>\n' +
+                '                            </li>\n' +
+                '\n' +
+                '                        </ul>\n' +
+                '                    </li>\n' +
+                '                    <li class="menu">\n' +
+                '                        <a href="#config" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">\n' +
+                '                            <div class="">\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>\n' +
+                '                                <span>Configuracion</span>\n' +
+                '                            </div>\n' +
+                '                            <div>\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                        <ul class="collapse submenu list-unstyled" id="config" data-parent="#menucore">\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Usuarios</a>\n' +
+                '                            </li>\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Ubicaciones</a>\n' +
+                '                            </li>\n' +
+                '                        </ul>\n' +
+                '                    </li>\n' +
+                '                    <li class="menu mroot">\n' +
+                '                        <a href="#configroot" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">\n' +
+                '                            <div class="">\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>\n' +
+                '                                <span>Manager</span>\n' +
+                '                            </div>\n' +
+                '                            <div>\n' +
+                '                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>\n' +
+                '                            </div>\n' +
+                '                        </a>\n' +
+                '                        <ul class="collapse submenu list-unstyled" id="configroot" data-parent="#menucore">\n' +
+                '                            <li>\n' +
+                '                                <a href="#!">Empresas</a>\n' +
+                '                            </li>\n' +
+                '                        </ul>\n' +
+                '                    </li>')
+
+            console.log(lv)
+            if(lv>0){ac.bchidden('.mroot',0)}
+
+            ac.bctext('.title-core','Registro de Visitas')
+            ac.bcworker('table', '.bc-table','t-visitas')
+
+        }
 
     }
 
@@ -150,7 +259,7 @@ class bccore {
 
         const ac = new bccore();
 
-        if(b=='productos') {
+        if(b=='visitas') {
             var data = [
                 {
                     data: "path",
@@ -339,10 +448,16 @@ class bccore {
 
     }
 
-    bctitlex(t){
+    bctitlex(a){
 
         $('title').empty()
-        $('title').append(t)
+        $('title').append(a)
+    }
+
+    bctext(a,b){
+
+        $(a).empty()
+        $(a).append(b)
     }
 
     bchidden(a,h){
@@ -473,7 +588,7 @@ class bccore {
             if (dog != null) {
 
                 console.log('Dog happy and sleep')
-                localStorage.setItem('ids', r.ids)
+                localStorage.setItem('ids', r.wd)
 
             }
 
@@ -611,6 +726,15 @@ class bccore {
         })
 
 
+
+    }
+
+    bcworker(a,b,c){
+
+        if(a=='table') {
+            $(b).empty()
+            $(b).append('<table class="table '+c+'"></table>')
+        }
 
     }
 

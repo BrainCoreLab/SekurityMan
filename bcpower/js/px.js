@@ -32,7 +32,7 @@ $(function() {
         $( "input" ).keyup(function() {
             ac.bchidden('#warning-field',0)
         })
-        ac.menuside()
+        ac.menuside(lg)
 
     }
 
@@ -40,9 +40,8 @@ $(function() {
 
         console.log('Panel Ready')
         ac.wachtdog('index.html')
-        ac.menuside()
-        ac.bchidden('.w-list-productos',1)
-        ac.bctablet('.t-productos','productos',0,0)
+        ac.menuside(pn)
+
 
     }
 

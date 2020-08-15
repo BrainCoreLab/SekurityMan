@@ -38,6 +38,7 @@ if($v==1){
         $jsondata['ids'] = $login['ids'];
         $jsondata['name'] = $login['nm'];
         $jsondata['id'] = $login['id'];
+        $jsondata['lv'] = $login['lv'];
 
     } else {$jsondata['sc'] = false;}
     $json=$jsondata;
