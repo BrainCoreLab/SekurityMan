@@ -987,6 +987,11 @@ code {
 
 .fx-mg-r-20{margin-right: 20px;}
 
+.fix-w-80{
+  width: 60px;
+  height: 100%;
+}
+
 /*  
     ======================
         MEDIA QUERIES

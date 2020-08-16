@@ -43,6 +43,13 @@ if($v==1){
     } else {$jsondata['sc'] = false;}
     $json=$jsondata;
 }
+if($v==2){
+    $qtable=$fxc->bccore($v,$a,$b,$c,$d);
+    $oCol = $_POST['order'][0]['column'];
+    $nCol = $_POST['columns'][$oCol]['name'];
+    $json =$fxc->data_table($qtable,$_POST['draw'],$_POST['start'],$_POST['length'],$_POST['search']['value'],$nCol,$_POST['order'][0]['dir'],$t);
+
+}
 
 /**Security Core**/
 
@@ -68,7 +75,7 @@ exit();
 
 
 
-function fxbcore($link,$a,$b,$c,$d){
+/*function fxbcore($link,$a,$b,$c,$d){
 
     if($b=='productos') {
         $ux = "SELECT * FROM productos ORDER BY id DESC";
@@ -101,87 +108,6 @@ function fxbcore($link,$a,$b,$c,$d){
     }
 
 
-}
-
-function get_requests_data_table($arrData,$draw,$start,$lenght,$searchValue,$orderCol,$orderDir,$tt){
-
-    $newArray = array(); $arrFiltered = array();  $arrProcessed = array(); $arrSended = array();
-    $sense = null; $rows = null; $limit = null;
-    $response= array();
-
-    if(!empty($arrData)){
-
-        if(!empty($searchValue) || $searchValue != ""){
-            $arrFiltered = array_filter($arrData,function($e)use($searchValue){
-
-                if (
-                    stripos($e['cod'], $searchValue) !== false ||
-                    stripos($e['ds'], $searchValue) !== false ||
-                    stripos($e['cat'], $searchValue) !== false ||
-                    stripos($e['tm'], $searchValue) !== false ||
-                    stripos($e['register'], $searchValue) !== false
-
-                ) {
-                    return true;
-                }
-                return false;
-
-            });
-            if(!empty($arrFiltered)){
-                foreach($arrFiltered as $keyD => $valueD){
-                    array_push($arrProcessed,$valueD);
-                }
-            }
-        } else{$arrProcessed = $arrData;}
-
-        if(!empty($orderDir)){if($orderDir == 'desc'){$sense = SORT_DESC;}else{$sense = SORT_ASC;}}
-        $newArray = array_sort($arrProcessed,$orderCol,$sense);
-        $rows = count($arrProcessed);
-        $limit = ($start + ($lenght -1));
-
-        if(!empty($newArray)){
-            foreach($newArray as $keyB => $valueB){
-                if($keyB >= $start && $keyB <= $limit){
-                    array_push($arrSended,$valueB);
-                }
-            }
-        }
-        $response = array("draw" => $draw, "recordsTotal" => $rows, "recordsFiltered" => $rows, "data" => $arrSended);
-    }else{
-
-        $response = array("draw" => $draw, "recordsTotal" => 0, "recordsFiltered" => 0, "data" => array());
-    }
-    return $response;
-}
-
-function array_sort($array, $on, $order){
-    $new_array = array();
-    $sortable_array = array();
-    if (count($array) > 0) {
-        foreach ($array as $k => $v) {
-            if (is_array($v)) {
-                foreach ($v as $k2 => $v2) {
-                    if ($k2 == $on) {
-                        $sortable_array[$k] = $v2;
-                    }
-                }
-            } else {
-                $sortable_array[$k] = $v;
-            }
-        }
-        switch ($order) {
-            case SORT_ASC:
-                asort($sortable_array);
-                break;
-            case SORT_DESC:
-                arsort($sortable_array);
-                break;
-        }
-        foreach ($sortable_array as $k => $v) {
-            $new_array[$k] = $array[$k];
-        }
-    }
-    return $new_array;
 }
 
 function bcdelx($link,$a,$b,$c){
@@ -383,7 +309,7 @@ function bcedit($link,$a,$b,$c,$d){
 
 
 
-if($v==1){
+if($v==10){
 
     $us=login($link,$_POST['u'],$_POST['p']);
 
@@ -411,7 +337,7 @@ if($v==1){
     exit();
 
 }
-if($v==2){
+if($v==20){
 
     $m=fxbcore($link,$a,$b,$c,$d);
 
@@ -430,7 +356,7 @@ if($v==2){
     echo json_encode($response);
     exit();
 }
-if($v==3){
+if($v==30){
 
     bcdelx($link,$a,$b,$c);
     $jsondata = array();
@@ -441,7 +367,7 @@ if($v==3){
     exit();
 
 }
-if($v==4){
+if($v==40){
 
     $w=wachtdog($link);
     $jsondata = array();
@@ -453,7 +379,7 @@ if($v==4){
     exit();
 
 }
-if($v==5){
+if($v==50){
 
     $m=bcinfo($link,$a,$b,$c);
     $jsondata = array();
@@ -506,5 +432,5 @@ if($v==5){
 
 
 
-
+**/
 

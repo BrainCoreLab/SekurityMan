@@ -187,6 +187,7 @@ class bccore {
 
             ac.bctext('.title-core','Registro de Visitas')
             ac.bcworker('table', '.bc-table','t-visitas')
+            ac.bctablet('.t-visitas','visitas',0,0)
 
         }
 
@@ -270,13 +271,31 @@ class bccore {
                     className: "text-center",
                     render: function (data, type, bc) {
 
-                        return '<img src=ac.bcurl()+"ftbox/' + bc.path + '" class="fix-w-80" />'
+                        return '<img src="ftbox/' + bc.path + '" class="fix-w-80" />'
 
                     }
                 },
-                {data: "cat", name: "cat", title: "Cat",className: "text-left"},
-                {data: "scat", name: "scat", title: "SubCat",className: "text-left"},
-                {data: "item", name: "item", title: "Producto",className: "text-left"},
+                {data: "nm", name: "nm", title: "Visitante",className: "text-left"},
+                {data: "emp", name: "emp", title: "Empresa",className: "text-left"},
+                {data: "ced", name: "ced", title: "Cedula",className: "text-left"},
+                {data: "fecha", name: "fecha", title: "Entrada",className: "text-left"},
+                {data: "fsal", name: "fsal", title: "Salida",className: "text-left"},
+                {data: "tmp", name: "tmp", title: "Temp",className: "text-center"},
+                {
+                    data: "status",
+                    name: "status",
+                    title: "Estado",
+                    searchable: false,
+                    orderable: false,
+                    className: "text-center",
+                    render: function (data, type, bc) {
+
+                        if(bc.status==1){return '<i class="far fa-user text-danger"></i>'}
+                        if(bc.status==2){return '<i class="far fa-user text-success"></i>'}
+
+
+                    }
+                },
                 {
                     data: "id",
                     name: "id",
@@ -292,8 +311,9 @@ class bccore {
                             '                                                        </a>\n' +
                             '\n' +
                             '                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink7">\n' +
-                            '                                                            <a class="dropdown-item" href="#" id="edp'+bc.id+'">Editar</a>\n' +
-                            '                                                            <a class="dropdown-item" href="#" id="delp'+bc.id+'">Eliminar</a>\n' +
+                            '                                                            <a class="dropdown-item" href="#" id="hst'+bc.id+'">Historial</a>\n' +
+                            '                                                            <a class="dropdown-item" href="#" id="alt'+bc.id+'">Alertas</a>\n' +
+                            '                                                            <a class="dropdown-item" href="#" id="sal'+bc.id+'">Salida</a>\n' +
                             '                                                        </div>\n' +
                             '                                                    </div>' +
                             '</div>'
@@ -316,106 +336,18 @@ class bccore {
                 "type": "post",
                 "data": {"v": 2, "a": a, "b":b, "c":c, "d":d}
             },
-            order: [[1, "desc"]],
+            order: [[4, "desc"]],
             columns: data,
             retrieve: true
         });
 
 
         $(a).on("click","td > div.list-item",function() {
-
+            const ac = new bccore();
             var table = $(a).DataTable();
             let tr = $(this).closest('tr')
             let row = table.row(tr)
-
-            if(b=='productos') {
-                const ac = new bccore();
-                let id = parseInt(row.data().id)
-
-                $('#edp' + id).click(function () {
-                    console.log('Editar Activo')
-                    localStorage.setItem('id',id)
-                    ac.bcedit('productos',id,0,0)
-
-                })
-
-                $('#delp' + id).click(function () {
-                    console.log('Delete Activo')
-                    ac.bcdelx('tablet',id,'productos','.t-productos')
-
-                })
-            }
-
-            if(b=='categorias') {
-                const ac = new bccore();
-                let id = parseInt(row.data().id)
-                let nc = row.data().item
-                let nprod = parseInt(row.data().nprod)
-
-                $('#edct' + id).click(function () {
-                    console.log('Editar Activo')
-                    localStorage.setItem('id',id)
-                    localStorage.setItem('cat',nc)
-                    ac.bcedit('categorias',id,0,0)
-
-                })
-
-                if(nprod == 0) {
-                    $('#delct' + id).click(function () {
-                        console.log('Delete Activo')
-                        ac.bcdelx('tablet', id, 'categorias', '.t-categorias')
-                    })
-                }
-
-                if(nprod > 0) {
-                    $('#delct' + id).hide()
-                }
-
-
-
-            }
-
-            if(b=='sbcat') {
-                const ac = new bccore();
-                let id = parseInt(row.data().id)
-                let nc = row.data().item
-                let cat = row.data().cat
-
-                $('#edsct' + id).click(function () {
-                    console.log('Editar SubCat Activo')
-                    localStorage.setItem('id',id)
-                    localStorage.setItem('cat',cat)
-                    ac.bcedit('scat',id,0,0)
-
-                })
-
-                $('#delsct' + id).click(function () {
-                    console.log('Delete Activo')
-                    ac.bcdelx('tablet',id,'scat','.t-scategoria')
-
-                })
-
-
-
-
-            }
-
-            if(b=='pedidos') {
-                const ac = new bccore();
-                let id = parseInt(row.data().id)
-                let ids = row.data().ids
-
-                $('#verpd' + id).click(function () {
-                    console.log('Pedidos Activo')
-                    localStorage.setItem('id',ids)
-                    ac.bcedit('pedidos',ids,0,0)
-
-                })
-
-            }
-
-
-
+            let id = parseInt(row.data().id)
 
 
         })

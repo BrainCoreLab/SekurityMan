@@ -58,6 +58,15 @@ class fxc
 
     }
 
+    public function bcsearchtwo($tabla,$subquery ,$condicion){
+        $rs=$this->link->query("SELECT $subquery FROM $tabla WHERE $condicion");
+        $bc=array();
+        while ($c=$rs->fetch_assoc()){
+            $bc[] = $c;
+        }
+        return $bc;
+    }
+
     function bccore($v,$a,$b,$c,$d){
         $fxc = new fxc();
 
@@ -81,7 +90,15 @@ class fxc
 
         }
 
+        if($v==2){
 
+            if($b=='visitas') {
+                $bca=$fxc->bcsearchone("webuser","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("visitcore a join imgcore i on a.idv = i.idv", "a.*,i.path", "a.cmp='" . $bca['cmp'] . "' order by a.fecha desc");
+                return  $bc;
+            }
+
+        }
 
         if($v==1000){
 
@@ -91,6 +108,87 @@ class fxc
         }
 
 
+    }
+
+    function data_table($arrData,$draw,$start,$lenght,$searchValue,$orderCol,$orderDir,$tt){
+        $fxc = new fxc();
+
+        $newArray = array(); $arrFiltered = array();  $arrProcessed = array(); $arrSended = array();
+        $sense = null; $rows = null; $limit = null;
+        $response= array();
+
+        if(!empty($arrData)){
+
+            if(!empty($searchValue) || $searchValue != ""){
+                $arrFiltered = array_filter($arrData,function($e)use($searchValue){
+
+                    if (
+                        stripos($e['nm'], $searchValue) !== false ||
+                        stripos($e['emp'], $searchValue) !== false ||
+                        stripos($e['ced'], $searchValue) !== false ||
+                        stripos($e['fecha'], $searchValue) !== false
+
+                    ) {
+                        return true;
+                    }
+                    return false;
+
+                });
+                if(!empty($arrFiltered)){
+                    foreach($arrFiltered as $keyD => $valueD){
+                        array_push($arrProcessed,$valueD);
+                    }
+                }
+            } else{$arrProcessed = $arrData;}
+
+            if(!empty($orderDir)){if($orderDir == 'desc'){$sense = SORT_DESC;}else{$sense = SORT_ASC;}}
+            $newArray = $fxc->array_sort($arrProcessed,$orderCol,$sense);
+            $rows = count($arrProcessed);
+            $limit = ($start + ($lenght -1));
+
+            if(!empty($newArray)){
+                foreach($newArray as $keyB => $valueB){
+                    if($keyB >= $start && $keyB <= $limit){
+                        array_push($arrSended,$valueB);
+                    }
+                }
+            }
+            $response = array("draw" => $draw, "recordsTotal" => $rows, "recordsFiltered" => $rows, "data" => $arrSended);
+        }else{
+
+            $response = array("draw" => $draw, "recordsTotal" => 0, "recordsFiltered" => 0, "data" => array());
+        }
+        return $response;
+    }
+
+    function array_sort($array, $on, $order){
+        $new_array = array();
+        $sortable_array = array();
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                    break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                    break;
+            }
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+        return $new_array;
     }
 
 }
