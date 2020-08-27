@@ -50,11 +50,133 @@ if($v==2){
     $json =$fxc->data_table($qtable,$_POST['draw'],$_POST['start'],$_POST['length'],$_POST['search']['value'],$nCol,$_POST['order'][0]['dir'],$t);
 
 }
+if($v==3){
+    $info=$fxc->bccore($v,$a,$b,$c,$d);
+
+    if($a=='visitas'){
+        $jsondata['sc'] = true;
+        $jsondata['nm'] = $info['nm'];
+        $jsondata['emp'] = $info['emp'];
+        $jsondata['ced'] = $info['ced'];
+    }
+
+    if($a=='fotodoc'){
+        $jsondata['sc'] = true;
+        $jsondata['path'] = $info['path'];
+    }
+
+    if($a=='app-cmp'){
+        $jsondata['sc'] = true;
+        $jsondata['cmp'] = $info['cmp'];
+    }
+
+    $json=$jsondata;
+}
+if($v==4){
+    $bcdata=$fxc->bccore($v,$a,$b,$c,$d);
+    $x=0;
+    while($bc=$bcdata->fetch_assoc()){
+        $x=$x+1;
+
+        if($a=='visitas') {
+
+            $jsonitem = array(
+
+                "id" => $bc['id'],
+                "idx" => $x,
+                "nm" => $bc['nm'],
+                "emp" => $bc['emp'],
+                "ced" => $bc['ced'],
+                "fch" => $bc['fecha'],
+                "fsal" => $bc['fsal'],
+                "status" => $bc['status'],
+                "tmp" => $bc['tmp'],
+                "loc" => $bc['loc']
+            );
+            array_push($jsondata, $jsonitem);
+
+        }
+        if($a=='alertas') {
+
+            $jsonitem = array(
+
+                "idx" => $x,
+                "qty" => $bc['q'],
+                "item" => $bc['item']
+
+            );
+            array_push($jsondata, $jsonitem);
+
+        }
+        if($a=='app-ubicaciones') {
+
+            $jsonitem = array(
+                "id" => $bc['id'],
+                "idx" => $x,
+                "loc" => $bc['nloc']
+
+            );
+            array_push($jsondata, $jsonitem);
+
+        }
+
+        $json=array("lx" =>$jsondata);
+
+    }
+
+
+
+}
+if($v==5){
+    $del=$fxc->bccore($v,$a,$b,$c,$d);
+    $jsondata['sc'] = $del;
+    $json=$jsondata;
+}
+if($v==6){
+    $upd=$fxc->bccore($v,$a,$b,$c,$d);
+    $jsondata['sc'] = $upd;
+    $json=$jsondata;
+}
+
+/**Insert Core**/
+
+if($v==50){
+
+    if($d=='crear-usuario') {$i = $fxc->bccore($v, $_POST['nus'], $_POST['usc'], $_POST['psb'], $d);}
+    if($d=='crear-loc') {$i = $fxc->bccore($v, $_POST['n'], $_POST['ga'], $_POST['gb'], $d);}
+    if($d=='app-dev') {$i = $fxc->bccore($v, $_POST['loc'], $_POST['uuid'], $_POST['cmp'], $d);}
+    if($d=='app-in-visita') {$i = $fxc->bccoreiv($v, $_POST['nm'], $_POST['emp'], $_POST['ced'], $_POST['tmp'], $_POST['fbio'], $_POST['ftmp'], $_POST['fdoc'], $_POST['uuid'], $d);}
+
+    $jsondata['sc'] = $i;
+    $json=$jsondata;
+}
 
 /**Security Core**/
 
 if($v==1000){
     $wachtdog=$fxc->bccore($v,0,0,0,0);
+    if(!empty($wachtdog)) {
+
+        $jsondata['sc'] = true;
+        $jsondata['wd'] = $wachtdog;
+
+    } else {$jsondata['sc'] = false;}
+    $json=$jsondata;
+}
+
+if($v==1001){
+    $shark=$fxc->bccore($v,0,0,0,0);
+    if(!empty($shark)) {
+
+        $jsondata['sc'] = true;
+        $jsondata['sw'] = $shark;
+
+    } else {$jsondata['sc'] = false;}
+    $json=$jsondata;
+}
+
+if($v==2000){
+    $wachtdog=$fxc->bccore($v,$a,0,0,0);
     if(!empty($wachtdog)) {
 
         $jsondata['sc'] = true;
@@ -70,367 +192,4 @@ echo json_encode($json);
 exit();
 
 
-
-
-
-
-
-/*function fxbcore($link,$a,$b,$c,$d){
-
-    if($b=='productos') {
-        $ux = "SELECT * FROM productos ORDER BY id DESC";
-        return $link->query($ux);
-    }
-
-    if($b=='categorias') {
-        $ux = "SELECT a.*, 
-                (SELECT COUNT(id) FROM scat WHERE cat=a.item) as nscat,
-                (SELECT COUNT(id) FROM productos WHERE cat=a.item) as nprod
-               FROM categorias a";
-        return $link->query($ux);
-    }
-
-    if($b=='sbcat') {
-        $ux = "SELECT a.*, 
-                (SELECT COUNT(id) FROM productos WHERE scat=a.item) as nprod
-               FROM scat a";
-        return $link->query($ux);
-    }
-
-    if($b=='pedidos') {
-        $ux = "SELECT * FROM  contacto where tp='Cotizacion'";
-        return $link->query($ux);
-    }
-
-    if($b=='contacto') {
-        $ux = "SELECT * FROM  contacto where tp='Contacto'";
-        return $link->query($ux);
-    }
-
-
-}
-
-function bcdelx($link,$a,$b,$c){
-
-    if($a=='pd-cot') {
-        $ux = "DELETE from dcot where id=" . $b;
-        $link->query($ux);
-    }
-
-    if($c=='productos') {
-        $ux = "DELETE from productos where id=" . $b;
-        $link->query($ux);
-    }
-
-    if($c=='categorias') {
-        $ux = "DELETE from categorias where id=".$b;
-        $link->query($ux);
-    }
-
-    if($c=='scat') {
-        $ux = "DELETE from scat where id=".$b;
-        $link->query($ux);
-    }
-
-}
-
-function mailcore($link,$em,$nm,$tp){
-
-
-    if($tp=='Cotizacion') {
-
-        $sb = 'Hemos recibido su solicittud de cotizacion | Energetica';
-
-        $msn = '<span style="background-color: #FFF; width: 150px;"><img src="https://www.energeticapanama.com/img/logo.png"></span>
-                <h1 style="font-family: helvetica;text-align: center;"> Energetica | Solicitud de Cotización</h1>
-                <hr>
-                <p style="font-size: 16px;">Estimado '.$nm.'</p>
-                <p>Hemos recibido su solicitud para una cotización</p>
-                <p>En breve uno de nuestros agentes la recibira y se contactara con usted para mas detalles sobre la misma</p>
-                <hr>
-                <p style="font-size: 16px;">Cordialmente</p>
-                <p style="font-size: 20px;">Energetica</p>
-                
-                ' ;
-
-
-    }
-
-    if($tp=='cot-registro') {
-
-        $sb = 'Ha recibido una nueva solicitud de cotizacion | Energetica';
-
-        $msn = '<span style="background-color: #FFF; width: 150px;"><img src="https://www.energeticapanama.com/img/logo.png"></span>
-                <h1 style="font-family: helvetica;text-align: center;"> Energetica | Solicitud de Cotización</h1>
-                <hr>
-                <p style="font-size: 16px;">Energetica:</p>
-                <p>Hemos recibido una solicitud para una cotización</p>
-                <p>En la consola de administracion podra ver los detalles de esta</p>
-                <p>Cliente: '.$nm.'</p>
-                <hr>
-                <p style="font-size: 16px;">Cordialmente</p>
-                <p style="font-size: 20px;">Energetica</p>
-                
-                ' ;
-
-
-    }
-
-    if($tp=='Contacto') {
-
-        $sb = 'Servicio al Cliente| Energetica';
-
-        $msn = '<span style="background-color: #FFF; width: 150px;"><img src="https://www.energeticapanama.com/img/logo.png"></span>
-                <h1 style="font-family: helvetica;text-align: center;"> Energetica | Servicio al Cliente</h1>
-                <hr>
-                <p style="font-size: 16px;">Estimado '.$nm.'</p>
-                <p>Hemos recibido su consulta</p>
-                <p>En breve uno de nuestros agentes la recibira y se contactara con usted para responderle en el menor tiempo posible</p>
-                <hr>
-                <p style="font-size: 16px;">Cordialmente</p>
-                <p style="font-size: 20px;">Energetica</p>
-                
-                ' ;
-
-
-    }
-
-    if($tp=='contacto-reg') {
-
-        $sb = 'Consulta desde Contactenos | Energetica';
-
-        $msn = '<span style="background-color: #FFF; width: 150px;"><img src="https://www.energeticapanama.com/img/logo.png"></span>
-                <h1 style="font-family: helvetica;text-align: center;"> Energetica | Consulta desde Contactenos</h1>
-                <hr>
-                <p style="font-size: 16px;">Energetica:</p>
-                <p>Hemos recibido un contacto desde el web</p>
-                <p>En la consola de administracion podra ver los detalles del mismo</p>
-                <p>Cliente: '.$nm.'</p>
-                <hr>
-                <p style="font-size: 16px;">Cordialmente</p>
-                <p style="font-size: 20px;">Energetica</p>
-                
-                ' ;
-
-
-    }
-
-
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $headers .= 'From: ENERGETICA <info@energeticapanama.com>' . "\r\n";
-
-    mail( $em, $sb, $msn, $headers);
-}
-
-function wachtdog($link){
-
-    $ux= "SELECT * FROM loginstatus where ids='".$_SESSION['us']."'";
-    $x=$link->query($ux);
-    $x->data_seek(0);
-    $cw = $x->fetch_assoc();
-
-    return $cw['ids'];
-
-}
-
-function bcinfo($link,$a,$b,$c){
-
-    if($a=='productos' && $c=='0') {
-        $ux = "SELECT * FROM productos WHERE cat='".$b."' ORDER BY id DESC";
-        return $link->query($ux);
-    }
-
-    if($a=='productos' && $c!='0') {
-        $ux = "SELECT * FROM productos WHERE cat='".$b."' and scat='".$c."' ORDER BY id DESC";
-        return $link->query($ux);
-    }
-    if($a=='pedidos') {
-        $ux = "SELECT * FROM dcot where ids='".$b."'";
-        return $link->query($ux);
-    }
-
-}
-
-function bcselect($link,$a,$b,$c){
-
-    if($a=='cat') {
-        $ux = "SELECT * from categorias ";
-        return $link->query($ux);
-    }
-
-    if($a=='scat') {
-        $ux = "SELECT * from scat where cat='".$b."'";
-        return $link->query($ux);
-    }
-
-}
-
-function bcedit($link,$a,$b,$c,$d){
-
-    if($a=='productos'){
-
-        $ux= "SELECT * FROM productos where id=".$b;
-        $x=$link->query($ux);
-        $x->data_seek(0);
-        return $x->fetch_assoc();
-
-    }
-
-    if($a=='categorias'){
-
-        $ux= "SELECT * FROM categorias where id=".$b;
-        $x=$link->query($ux);
-        $x->data_seek(0);
-        return $x->fetch_assoc();
-
-    }
-
-    if($a=='scat'){
-
-        $ux= "SELECT * FROM scat where id=".$b;
-        $x=$link->query($ux);
-        $x->data_seek(0);
-        return $x->fetch_assoc();
-
-    }
-
-    if($a=='pedidos'){
-
-        $ux= "SELECT * FROM contacto where ids='".$b."'";
-        $x=$link->query($ux);
-        $x->data_seek(0);
-        return $x->fetch_assoc();
-
-    }
-
-}
-
-
-
-
-if($v==10){
-
-    $us=login($link,$_POST['u'],$_POST['p']);
-
-    $jsondata = array();
-
-    if($us['us']==$_POST['u']){
-
-        $jsondata['sc']=true;
-        $jsondata['us']=$_POST['u'];
-        $jsondata['session']=$_SESSION['us'];
-        $jsondata['name']=$us['nm'];
-        $jsondata['id']=$us['id'];
-
-    }
-
-    if($us['us']!=$_POST['u']){
-
-        $jsondata['sc']=false;
-
-    }
-
-
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode($jsondata);
-    exit();
-
-}
-if($v==20){
-
-    $m=fxbcore($link,$a,$b,$c,$d);
-
-    $results=array();
-
-    while ($c=$m->fetch_assoc()){
-        $results[] = $c;
-    }
-
-    $oCol = $_POST['order'][0]['column'];
-    $nCol = $_POST['columns'][$oCol]['name'];
-
-    $response =get_requests_data_table($results,$_POST['draw'],$_POST['start'],$_POST['length'],$_POST['search']['value'],$nCol,$_POST['order'][0]['dir'],$t);
-
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode($response);
-    exit();
-}
-if($v==30){
-
-    bcdelx($link,$a,$b,$c);
-    $jsondata = array();
-    $jsondata['delete'] = true;
-
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode($jsondata);
-    exit();
-
-}
-if($v==40){
-
-    $w=wachtdog($link);
-    $jsondata = array();
-    $jsondata['sc'] = true;
-    $jsondata['wd'] = $w;
-
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode($jsondata);
-    exit();
-
-}
-if($v==50){
-
-    $m=bcinfo($link,$a,$b,$c);
-    $jsondata = array();
-    $m->data_seek(0);
-
-    $x=0;
-    while($bc=$m->fetch_assoc()){
-        $x=$x+1;
-        if($a=='productos') {
-
-            $jsonitem = array(
-
-                "id" => $bc['id'],
-                "idx" => $x,
-                "item" => $bc['item'],
-                "ds" => $bc['ds'],
-                "cat" => $bc['cat'],
-                "scat" => $bc['scat'],
-                "path" => $bc['path']
-            );
-            array_push($jsondata, $jsonitem);
-
-        }
-
-        if($a=='pedidos') {
-
-            $jsonitem = array(
-
-                "id" => $bc['id'],
-                "idx" => $x,
-                "cat" => $bc['cat'],
-                "item" => $bc['item']
-            );
-            array_push($jsondata, $jsonitem);
-
-        }
-
-
-
-
-    }
-
-    header('Content-type: application/json; charset=utf-8');
-    echo json_encode(array("lx" =>$jsondata));
-    exit();
-}
-
-
-
-
-
-
-**/
 

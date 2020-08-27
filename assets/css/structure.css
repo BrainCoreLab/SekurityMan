@@ -256,7 +256,7 @@ code {
 
 .header-container .navbar .dropdown-item {
   line-height: 1.8;
-  font-size: 0.96rem;
+  font-size: 0.76rem;
   padding: 15px 0 15px 0;
   word-wrap: normal;
   border-radius: 6px; }
@@ -990,6 +990,33 @@ code {
 .fix-w-80{
   width: 60px;
   height: 100%;
+}
+
+.fix-w-100-p{
+  width: 100% !important;
+}
+
+.bccropped {
+ /*width: 150px; /* width of container */
+  height: 550px; /* height of container */
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.bccropped img {
+  margin: -200px 0px 0px 0px;
+}
+
+.fx-bccropped{
+  margin: 0px 0px 0px 0px !important;
+}
+
+.fx-form-user{
+  height:100% !important;
+}
+.map{
+  height: 400px;
+  width: 500px;
 }
 
 /*  

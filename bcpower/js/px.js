@@ -41,12 +41,9 @@ $(function() {
         console.log('Panel Ready')
         ac.wachtdog('index.html')
         ac.menuside(pn)
-
+        ac.bctimer('shark',30000)
 
     }
-
-
-
 
 
 
