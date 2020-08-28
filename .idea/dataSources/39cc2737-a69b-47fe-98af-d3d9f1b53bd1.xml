@@ -720,359 +720,384 @@
     <table id="225" parent="2" name="company"/>
     <table id="226" parent="2" name="dvccore"/>
     <table id="227" parent="2" name="imgcore"/>
-    <table id="228" parent="2" name="loginstatus"/>
-    <table id="229" parent="2" name="ubicaciones"/>
-    <table id="230" parent="2" name="visitcore">
+    <table id="228" parent="2" name="logbug"/>
+    <table id="229" parent="2" name="loginstatus"/>
+    <table id="230" parent="2" name="ubicaciones"/>
+    <table id="231" parent="2" name="visitcore">
       <Engine>MyISAM</Engine>
     </table>
-    <table id="231" parent="2" name="visituser"/>
-    <table id="232" parent="2" name="webuser"/>
-    <column id="233" parent="224" name="id">
+    <table id="232" parent="2" name="visituser"/>
+    <table id="233" parent="2" name="webuser"/>
+    <column id="234" parent="224" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="234" parent="224" name="ta">
+    <column id="235" parent="224" name="ta">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="235" parent="224" name="idv">
+    <column id="236" parent="224" name="idv">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="236" parent="224" name="register">
+    <column id="237" parent="224" name="register">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="237" parent="224" name="status">
+    <column id="238" parent="224" name="status">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="238" parent="224" name="snd">
+    <column id="239" parent="224" name="snd">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="239" parent="224" name="cmp">
+    <column id="240" parent="224" name="cmp">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="240" parent="224" name="PRIMARY">
+    <key id="241" parent="224" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="241" parent="225" name="id">
+    <column id="242" parent="225" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="242" parent="225" name="nm">
+    <column id="243" parent="225" name="nm">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="243" parent="225" name="cmp">
+    <column id="244" parent="225" name="cmp">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="244" parent="225" name="status">
+    <column id="245" parent="225" name="status">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="245" parent="225" name="PRIMARY">
+    <key id="246" parent="225" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="246" parent="226" name="id">
+    <column id="247" parent="226" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="247" parent="226" name="idu">
+    <column id="248" parent="226" name="idu">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="248" parent="226" name="loc">
+    <column id="249" parent="226" name="loc">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="249" parent="226" name="register">
+    <column id="250" parent="226" name="register">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="250" parent="226" name="ga">
+    <column id="251" parent="226" name="ga">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="251" parent="226" name="gb">
+    <column id="252" parent="226" name="gb">
       <Position>6</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="252" parent="226" name="thm">
+    <column id="253" parent="226" name="thm">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="253" parent="226" name="gps">
+    <column id="254" parent="226" name="gps">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="254" parent="226" name="rcf">
+    <column id="255" parent="226" name="rcf">
       <Position>9</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="255" parent="226" name="cmp">
+    <column id="256" parent="226" name="cmp">
       <Position>10</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="256" parent="226" name="iq">
+    <column id="257" parent="226" name="iq">
       <Position>11</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="257" parent="226" name="PRIMARY">
+    <key id="258" parent="226" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="258" parent="227" name="id">
+    <column id="259" parent="227" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="259" parent="227" name="path">
+    <column id="260" parent="227" name="path">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="260" parent="227" name="tp">
+    <column id="261" parent="227" name="tp">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="261" parent="227" name="idv">
+    <column id="262" parent="227" name="idv">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="262" parent="227" name="cmp">
+    <column id="263" parent="227" name="cmp">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="263" parent="227" name="PRIMARY">
+    <key id="264" parent="227" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="264" parent="228" name="id">
+    <column id="265" parent="228" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="265" parent="228" name="us">
+    <column id="266" parent="228" name="item">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="266" parent="228" name="ip">
+    <column id="267" parent="228" name="bclog">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="267" parent="228" name="register">
+    <key id="268" parent="228" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="269" parent="229" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="270" parent="229" name="us">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="271" parent="229" name="ip">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="272" parent="229" name="register">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="268" parent="228" name="ids">
+    <column id="273" parent="229" name="ids">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="269" parent="228" name="status">
+    <column id="274" parent="229" name="status">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="270" parent="228" name="PRIMARY">
+    <key id="275" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="271" parent="229" name="id">
+    <column id="276" parent="230" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="272" parent="229" name="nloc">
+    <column id="277" parent="230" name="nloc">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="273" parent="229" name="ga">
+    <column id="278" parent="230" name="ga">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="274" parent="229" name="gb">
+    <column id="279" parent="230" name="gb">
       <Position>4</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="275" parent="229" name="status">
+    <column id="280" parent="230" name="status">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="276" parent="229" name="cmp">
+    <column id="281" parent="230" name="cmp">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="277" parent="229" name="PRIMARY">
+    <key id="282" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="278" parent="230" name="id">
+    <column id="283" parent="231" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="279" parent="230" name="nm">
+    <column id="284" parent="231" name="nm">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="280" parent="230" name="emp">
+    <column id="285" parent="231" name="emp">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="281" parent="230" name="ced">
+    <column id="286" parent="231" name="ced">
       <Position>4</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="282" parent="230" name="fecha">
+    <column id="287" parent="231" name="fecha">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="283" parent="230" name="status">
+    <column id="288" parent="231" name="status">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="284" parent="230" name="cmp">
+    <column id="289" parent="231" name="cmp">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="285" parent="230" name="uuid">
+    <column id="290" parent="231" name="uuid">
       <Position>8</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="286" parent="230" name="idv">
+    <column id="291" parent="231" name="idv">
       <Position>9</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="287" parent="230" name="fsal">
+    <column id="292" parent="231" name="fsal">
       <Position>10</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="288" parent="230" name="tmp">
+    <column id="293" parent="231" name="tmp">
       <Position>11</Position>
       <DataType>float|0s</DataType>
     </column>
-    <column id="289" parent="230" name="tp">
+    <column id="294" parent="231" name="tp">
       <Position>12</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="290" parent="230" name="loc">
+    <column id="295" parent="231" name="loc">
       <Position>13</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="291" parent="230" name="wd">
+    <column id="296" parent="231" name="wd">
       <Position>14</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>1</DefaultExpression>
     </column>
-    <column id="292" parent="230" name="shk">
+    <column id="297" parent="231" name="shk">
       <Position>15</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
     </column>
-    <key id="293" parent="230" name="PRIMARY">
+    <key id="298" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="294" parent="231" name="id">
+    <column id="299" parent="232" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="295" parent="231" name="nm">
+    <column id="300" parent="232" name="nm">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="296" parent="231" name="emp">
+    <column id="301" parent="232" name="emp">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="297" parent="231" name="ced">
+    <column id="302" parent="232" name="ced">
       <Position>4</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="298" parent="231" name="loc">
+    <column id="303" parent="232" name="loc">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="299" parent="231" name="wd">
+    <column id="304" parent="232" name="wd">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="300" parent="231" name="cmp">
+    <column id="305" parent="232" name="cmp">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="301" parent="231" name="PRIMARY">
+    <column id="306" parent="232" name="idvs">
+      <Position>8</Position>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <key id="307" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="302" parent="232" name="id">
+    <column id="308" parent="233" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="303" parent="232" name="us">
+    <column id="309" parent="233" name="us">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="304" parent="232" name="ps">
+    <column id="310" parent="233" name="ps">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="305" parent="232" name="nm">
+    <column id="311" parent="233" name="nm">
       <Position>4</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="306" parent="232" name="lv">
+    <column id="312" parent="233" name="lv">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="307" parent="232" name="ids">
+    <column id="313" parent="233" name="ids">
       <Position>6</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="308" parent="232" name="status">
+    <column id="314" parent="233" name="status">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="309" parent="232" name="register">
+    <column id="315" parent="233" name="register">
       <Position>8</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="310" parent="232" name="cmp">
+    <column id="316" parent="233" name="cmp">
       <Position>9</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="311" parent="232" name="lg">
+    <column id="317" parent="233" name="lg">
       <Position>10</Position>
       <DataType>tinyint(1)|0s</DataType>
     </column>
-    <key id="312" parent="232" name="PRIMARY">
+    <key id="318" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

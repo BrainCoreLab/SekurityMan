@@ -698,7 +698,7 @@ class bccore {
                 "type": "post",
                 "data": {"v": 2, "a": a, "b":b, "c":c, "d":d}
             },
-            order: [[ord, "desc"]],
+            order: [[ord, "ASC"]],
             columns: data,
             retrieve: true
         });
@@ -1056,6 +1056,21 @@ class bccore {
 
         });
 
+    }
+
+    bcrfi(method, url, data, callback){
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            url: url,
+            method: method,
+            headers: {
+                token: "34865e4d8b61403db84aa78f964a4191"
+            },
+            data: data
+        }).done(function (response) {
+            callback(response)
+        });
     }
 
 

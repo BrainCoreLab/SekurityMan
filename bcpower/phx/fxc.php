@@ -132,7 +132,7 @@ class fxc
 
             if($b=='visitas') {
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                $bc = $fxc->bcsearchtwo("visitcore a join imgcore i on a.idv = i.idv", "a.*,i.path", "a.cmp='" . $bca['cmp'] . "' order by a.fecha desc");
+                $bc = $fxc->bcsearchtwo("visitcore a join imgcore i on a.idv = i.idv and i.tp=3 ", "a.*,i.path", "a.cmp='" . $bca['cmp'] . "' order by a.fecha desc");
                 return  $bc;
             }
 
@@ -178,6 +178,13 @@ class fxc
             if($a=='app-cmp') {
                 return $fxc->bcsearchone("company", "*","cmp=" . $b);
             }
+            if($a=='app-recface') {
+                $date=date('Y-m-d 00:00:00');
+                return $fxc->bcsearchone("visituser a", "a.*,(SELECT count(id) as q FROM visitcore where ced=a.ced and fecha >= '".$date."' and status=1) as qv","a.idvs=" . $b);
+            }
+            if($a=='app-cedula') {
+                return $fxc->bcsearchone("visituser", "*","ced='".$b."'");
+            }
         }
 
         if($v==4){
@@ -190,6 +197,10 @@ class fxc
             }
             if($a=='app-ubicaciones') {
                 return $fxc->bcsearchtree("ubicaciones","*", "cmp=".$b);
+            }
+            if($a=='app-visitas') {
+                $date=date('Y-m-d 00:00:00');
+                return $fxc->bcsearchtree("visitcore a join imgcore i on a.idv = i.idv and i.tp=3","a.*,i.path", "a.fecha >='".$date."' order by a.fecha desc");
             }
         }
 
@@ -212,6 +223,9 @@ class fxc
             }
             if($a=='alarma') {
                 return $fxc->bcupdate("alertcore","status=".$b,"id=".$c);
+            }
+            if($a=='app-salida') {
+                return $fxc->bcupdate("visitcore","status=2, fsal=NOW()","id=".$b);
             }
         }
 
@@ -259,41 +273,61 @@ class fxc
 
     }
 
-    function bccoreiv($v,$a,$b,$c,$d,$e,$f,$g,$h){
+    function bccoreiv($v,$a,$b,$c,$d,$e,$f,$g,$h,$i){
 
         $track=time();
 
         $fxc = new fxc();
-        $bc = $fxc->bcsearchone("dvccore", "*", "idu='" . $g . "'");
+        $bc = $fxc->bcsearchone("dvccore", "*", "idu='" . $h . "'");
 
-        $fxc->bcimgin($_POST['nm'],$_POST['fbio'],$track);
-        $fbio=str_replace(' ', '', $_POST['nm']);
-        $fbio=$track.$fbio.'.jpg';
-        $fxc->bcinsert("imgcore", " '" . $fbio . "',3," . $track . "," . $bc['cmp']);
+        if(!empty($_POST['fbio'])) {
+            $fxc->bcimgin($_POST['nm'], $_POST['fbio'], $track, 'bio');
+            $fbio = str_replace(' ', '', $_POST['nm']);
+            $fbio = $track . $fbio . '-bio.jpg';
+            $fxc->bcinsert("imgcore", " '" . $fbio . "',3," . $track . "," . $bc['cmp']);
+        }
 
-        $fxc->bcimgin($_POST['nm'],$_POST['ftmp'],$track);
-        $ftmp=str_replace(' ', '', $_POST['nm']);
-        $ftmp=$track.$ftmp.'.jpg';
-        $fxc->bcinsert("imgcore", " '" . $ftmp . "',2," . $track . "," . $bc['cmp']);
+        if(!empty($_POST['ftmp'])) {
+            $fxc->bcimgin($_POST['nm'], $_POST['ftmp'], $track, 'tmp');
+            $ftmp = str_replace(' ', '', $_POST['nm']);
+            $ftmp = $track . $ftmp . '-tmp.jpg';
+            $fxc->bcinsert("imgcore", " '" . $ftmp . "',2," . $track . "," . $bc['cmp']);
+        }
 
-        $fxc->bcimgin($_POST['nm'],$_POST['fdoc'],$track);
-        $fdoc=str_replace(' ', '', $_POST['nm']);
-        $fdoc=$track.$ftmp.'.jpg';
-        $fxc->bcinsert("imgcore", " '" . $fdoc . "',1," . $track . "," . $bc['cmp']);
+        if(!empty($_POST['fdoc'])) {
+            $fxc->bcimgin($_POST['nm'], $_POST['fdoc'], $track, 'doc');
+            $fdoc = str_replace(' ', '', $_POST['nm']);
+            $fdoc = $track . $fdoc . '-doc.jpg';
+            $fxc->bcinsert("imgcore", " '" . $fdoc . "',1," . $track . "," . $bc['cmp']);
+        }
 
+        $bv = $fxc->bcsearchone("visituser", "count(id) as q", "ced='" . $c . "'");
+        if($bv['q']==0){
+            $fxc->bcinsert("visituser", " '" . $a . "','" . $b . "','" . $c . "','".$bc['loc']."',1,'".$bc['cmp']."',".$track);
+            $fxc->bcrfi($_POST['nm'].'-'.$track, $_POST['fbio']);
+        }
 
-        return $fxc->bcinsert("dvccore", " '" . $b . "','" . $a . "',NOW()," . $bc['ga'] . "," . $bc['gb'] . ",1,1,1," . $c . ",1");
+        $date=date('Y-m-d 00:00:00');
+
+        $bvc = $fxc->bcsearchone("visitcore", "count(id) as q", "ced='" . $c . "' and status=1 and fecha >'".$date."'");
+        if($bvc['q']==0){
+            $fxc->bcinsert("visitcore", " '" . $a . "','" . $b . "','" . $c . "',NOW(),1,'".$bc['cmp']."','".$h."',".$track.",'','".$d."',1,'".$bc['loc']."',1,0");
+            return true;
+        }
+        return false;
+
     }
 
-    function bcimgin($a,$b,$c){
+    function bcimgin($a,$b,$c,$d){
+        $fxc = new fxc();
         $track=$c;
         $fbio=str_replace(' ', '', $a);
-        $fbio=$track.$fbio.'.jpg';
+        $fbio=$track.$fbio.'-'.$d.'.jpg';
         $imageData = base64_decode($b);
         $source = imagecreatefromstring($imageData);
         $rotate = imagerotate($source, 0, 0);
         $path="/home1/eman3617/public_html/skm/ftbox/";
-        $imageSave = imagejpeg($rotate,$path.$fbio,100);
+        $imageSave = imagejpeg($rotate,$path.$fbio,80);
         imagedestroy($source);
     }
 
@@ -376,6 +410,79 @@ class fxc
             }
         }
         return $new_array;
+    }
+
+    function bcrfi($a,$b){
+        $fxc = new fxc();
+        $nameid = $fxc->bcrec('name', $a,0);
+        $fxc->bcrec('photo', $b,$nameid->id);
+    }
+
+    function bcrec($tp, $data,$id){
+        $fxc = new fxc();
+        $fxc->bcinsert("logbug", " '" . $data . "','" . $id . "'");
+
+        $curl = curl_init();
+
+        if($tp=='name') {
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.luxand.cloud/subject",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => ["name" => $data],
+                CURLOPT_HTTPHEADER => array(
+                    "token: 9f404b1af2ed4954bc4cc5aebae4df8b"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+                die;
+            };
+
+            return json_decode($response);
+        }
+        if($tp=='photo') {
+
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.luxand.cloud/subject/".$id,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => [ "photo" => $data],
+                CURLOPT_HTTPHEADER => array(
+                    "token: 9f404b1af2ed4954bc4cc5aebae4df8b"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+                die;
+            };
+
+            return json_decode($response);
+
+        }
+
     }
 
 

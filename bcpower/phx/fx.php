@@ -70,6 +70,22 @@ if($v==3){
         $jsondata['cmp'] = $info['cmp'];
     }
 
+    if($a=='app-recface'){
+
+        $jsondata['sc'] = true;
+        $jsondata['nm'] = $info['nm'];
+        $jsondata['emp'] = $info['emp'];
+        $jsondata['ced'] = $info['ced'];
+        $jsondata['wd'] = $info['wd'];
+        $jsondata['qv'] = $info['qv'];
+
+    }
+
+    if($a=='app-cedula'){
+        $jsondata['sc'] = true;
+        $jsondata['emp'] = $info['emp'];
+    }
+
     $json=$jsondata;
 }
 if($v==4){
@@ -114,6 +130,26 @@ if($v==4){
                 "id" => $bc['id'],
                 "idx" => $x,
                 "loc" => $bc['nloc']
+
+            );
+            array_push($jsondata, $jsonitem);
+
+        }
+        if($a=='app-visitas') {
+
+            $jsonitem = array(
+                "id" => $bc['id'],
+                "idx" => $x,
+                "nm" => $bc['nm'],
+                "emp" => $bc['emp'],
+                "ced" => $bc['ced'],
+                "fch" => $bc['fecha'],
+                "fsal" => $bc['fsal'],
+                "status" => $bc['status'],
+                "tmp" => $bc['tmp'],
+                "loc" => $bc['loc'],
+                "idv" => $bc['idv'],
+                "path" => $bc['path']
 
             );
             array_push($jsondata, $jsonitem);
