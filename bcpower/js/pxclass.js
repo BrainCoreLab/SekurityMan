@@ -430,6 +430,7 @@ class bccore {
                 {data: "fsal", name: "fsal", title: "Salida",className: "text-left"},
                 {data: "loc", name: "loc", title: "Oficina",className: "text-left"},
                 {data: "tmp", name: "tmp", title: "Temp",className: "text-center"},
+                {data: "tm", name: "tm", title: "TM",className: "text-center"},
                 {
                     data: "status",
                     name: "status",

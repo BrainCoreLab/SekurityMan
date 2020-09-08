@@ -183,7 +183,8 @@ class fxc
                 return $fxc->bcsearchone("visituser a", "a.*,(SELECT count(id) as q FROM visitcore where ced=a.ced and fecha >= '".$date."' and status=1) as qv","a.idvs=" . $b);
             }
             if($a=='app-cedula') {
-                return $fxc->bcsearchone("visituser", "*","ced='".$b."'");
+                $date=date('Y-m-d 00:00:00');
+                return $fxc->bcsearchone("visituser a", "a.*,(SELECT count(id) as q FROM visitcore where ced=a.ced and fecha >= '".$date."' and status=1) as qv","a.ced='".$b."'");
             }
         }
 
@@ -273,7 +274,7 @@ class fxc
 
     }
 
-    function bccoreiv($v,$a,$b,$c,$d,$e,$f,$g,$h,$i){
+    function bccoreiv($v,$a,$b,$c,$d,$e,$f,$g,$h,$i,$j){
 
         $track=time();
 
@@ -301,6 +302,13 @@ class fxc
             $fxc->bcinsert("imgcore", " '" . $fdoc . "',1," . $track . "," . $bc['cmp']);
         }
 
+        $a=ucwords(strtolower($a));
+        $b=strtoupper($b);
+
+
+        $a=$fxc->qtildes($a);
+        $b=$fxc->qtildes($b);
+
         $bv = $fxc->bcsearchone("visituser", "count(id) as q", "ced='" . $c . "'");
         if($bv['q']==0){
             $fxc->bcinsert("visituser", " '" . $a . "','" . $b . "','" . $c . "','".$bc['loc']."',1,'".$bc['cmp']."',".$track);
@@ -311,7 +319,7 @@ class fxc
 
         $bvc = $fxc->bcsearchone("visitcore", "count(id) as q", "ced='" . $c . "' and status=1 and fecha >'".$date."'");
         if($bvc['q']==0){
-            $fxc->bcinsert("visitcore", " '" . $a . "','" . $b . "','" . $c . "',NOW(),1,'".$bc['cmp']."','".$h."',".$track.",'','".$d."',1,'".$bc['loc']."',1,0");
+            $fxc->bcinsert("visitcore", "'" . $a . "','" . $b . "','" . $c . "',NOW(),1,'".$bc['cmp']."','".$h."',".$track.",0,'".$d."',1,'".$bc['loc']."',1,0,'".$j."'");
             return true;
         }
         return false;
@@ -436,7 +444,7 @@ class fxc
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => ["name" => $data],
                 CURLOPT_HTTPHEADER => array(
-                    "token: 9f404b1af2ed4954bc4cc5aebae4df8b"
+                    "token: 34865e4d8b61403db84aa78f964a4191"
                 ),
             ));
 
@@ -465,7 +473,7 @@ class fxc
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => [ "photo" => $data],
                 CURLOPT_HTTPHEADER => array(
-                    "token: 9f404b1af2ed4954bc4cc5aebae4df8b"
+                    "token: 34865e4d8b61403db84aa78f964a4191"
                 ),
             ));
 
@@ -483,6 +491,13 @@ class fxc
 
         }
 
+    }
+
+    function qtildes($cadena) {
+        $no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+        $permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+        $texto = str_replace($no_permitidas, $permitidas ,$cadena);
+        return $texto;
     }
 
 

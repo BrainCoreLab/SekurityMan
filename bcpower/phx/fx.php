@@ -84,6 +84,11 @@ if($v==3){
     if($a=='app-cedula'){
         $jsondata['sc'] = true;
         $jsondata['emp'] = $info['emp'];
+        $jsondata['nm'] = $info['nm'];
+        $jsondata['ced'] = $info['ced'];
+        $jsondata['loc'] = $info['loc'];
+        $jsondata['wd'] = $info['wd'];
+        $jsondata['qv'] = $info['qv'];
     }
 
     $json=$jsondata;
@@ -181,7 +186,7 @@ if($v==50){
     if($d=='crear-usuario') {$i = $fxc->bccore($v, $_POST['nus'], $_POST['usc'], $_POST['psb'], $d);}
     if($d=='crear-loc') {$i = $fxc->bccore($v, $_POST['n'], $_POST['ga'], $_POST['gb'], $d);}
     if($d=='app-dev') {$i = $fxc->bccore($v, $_POST['loc'], $_POST['uuid'], $_POST['cmp'], $d);}
-    if($d=='app-in-visita') {$i = $fxc->bccoreiv($v, $_POST['nm'], $_POST['emp'], $_POST['ced'], $_POST['tmp'], $_POST['fbio'], $_POST['ftmp'], $_POST['fdoc'], $_POST['uuid'], $d);}
+    if($d=='app-in-visita') {$i = $fxc->bccoreiv($v, $_POST['nm'], $_POST['emp'], $_POST['ced'], $_POST['tmp'], $_POST['fbio'], $_POST['ftmp'], $_POST['fdoc'], $_POST['uuid'], $d,$_POST['tm']);}
 
     $jsondata['sc'] = $i;
     $json=$jsondata;
