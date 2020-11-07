@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteCond %{HTTP_HOST} braincore\.live [NC]
+RewriteCond %{HTTP_HOST} eman\.live [NC]
 RewriteCond %{SERVER_PORT} 80
 RewriteRule ^(.*)$ https://eman.live//$1 [R,L]
 # php -- BEGIN cPanel-generated handler, do not edit

@@ -24,15 +24,16 @@ $(function() {
 
     if(lg=='lg'){
         console.log('Login Panel Ready')
-
         ac.bctitlex('Sekurity Man - Panel de Administracion')
         ac.bchidden('#warning-field',0)
+        localStorage.removeItem('loc-emp')
         ac.killlogin()
         $('input').val('')
         $( "input" ).keyup(function() {
             ac.bchidden('#warning-field',0)
         })
         ac.menuside(lg)
+        ac.gettoken('page')
 
     }
 
@@ -41,7 +42,8 @@ $(function() {
         console.log('Panel Ready')
         ac.wachtdog('index.html')
         ac.menuside(pn)
-        ac.bctimer('shark',30000)
+        ac.shark()
+        ac.bctimer('shark',216000000)
 
     }
 

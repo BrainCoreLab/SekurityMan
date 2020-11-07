@@ -105,7 +105,7 @@ class fxc
 
     }
 
-    function bccore($v,$a,$b,$c,$d){
+    function bccore($v,$a,$b,$c,$d,$e,$f,$g){
         $fxc = new fxc();
 
         if($v==0){
@@ -131,20 +131,45 @@ class fxc
         if($v==2){
 
             if($b=='visitas') {
+                $fl="";
+                if($c!='0'){ $fl=" and a.loc='".$c."'";}
+                if($c=="Todos"){ $fl="";}
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "' ");
+                $bc = $fxc->bcsearchtwo("visitcore a ", "a.*,(SELECT TIMESTAMPDIFF(MINUTE , a.fecha, a.fsal)) as df,(SELECT CONCAT(a.status,'-',a.id)) as idx,(SELECT path FROM imgcore WHERE idv=a.idv and tp=3 limit 0,1) as path", "a.cmp='" . $bca['cmp'] . "' ".$fl." order by a.id desc");
+                return  $bc;
+            }
+
+            if($b=='autos') {
+                $fl="";
+                if($c!='0'){ $fl=" and a.loc='".$c."'";}
+                if($c=="Todos"){ $fl="";}
+
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                $bc = $fxc->bcsearchtwo("visitcore a join imgcore i on a.idv = i.idv and i.tp=3 ", "a.*,i.path", "a.cmp='" . $bca['cmp'] . "' order by a.fecha desc");
+                $bc = $fxc->bcsearchtwo("autocore a ", "a.*,(SELECT TIMESTAMPDIFF(MINUTE , a.fecha, a.fsal)) as df,(SELECT path FROM imgcore WHERE idv=a.idv and tp=4 limit 0,1) as path", "a.cmp='" . $bca['cmp'] . "' ".$fl." order by a.fecha desc");
                 return  $bc;
             }
 
             if($b=='visitantes') {
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                $bc = $fxc->bcsearchtwo("visituser", "*", "cmp='" . $bca['cmp'] . "'");
+                $bc = $fxc->bcsearchtwo("visituser a", "a.*,(SELECT CONCAT(a.wd,'-',a.id)) as idx", "a.cmp='" . $bca['cmp'] . "'");
+                return  $bc;
+            }
+
+            if($b=='conductores') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("truckman", "*", "cmp='" . $bca['cmp'] . "'");
+                return  $bc;
+            }
+
+            if($b=='camiones') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("truckcore a", "a.*,(SELECT CONCAT((SELECT count(id) as q FROM autocore where placa=a.plc),'-',a.id)) as idx", "a.cmp='" . $bca['cmp'] . "'");
                 return  $bc;
             }
 
             if($b=='alertas') {
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                $bc = $fxc->bcsearchtwo("alertcore a join visitcore i on a.idv = i.idv", "a.*,i.nm,i.emp,i.fecha as vfch", "a.cmp='" . $bca['cmp'] . "' and a.status=1");
+                $bc = $fxc->bcsearchtwo("alertcore a join visitcore i on a.idv = i.idv", "a.*,i.nm,i.emp,i.fecha as vfch", "a.cmp='" . $bca['cmp'] . "' and a.status=1 and a.ta='".$c."'");
                 return  $bc;
             }
 
@@ -166,11 +191,56 @@ class fxc
                 return  $bc;
             }
 
+            if($b=='w-man') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("wman", "*", "cmp='" . $bca['cmp'] . "'");
+                return  $bc;
+            }
+
+            if($b=='w-turno') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("options", "*", "tp='turno' and cmp='" . $bca['cmp'] . "'");
+                return  $bc;
+            }
+
+            if($b=='autos-history') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("autocore", "*", "placa='" . $c . "' order by id desc");
+                return  $bc;
+            }
+
+            if($b=='visita-history') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("visitcore", "*", "ced='" . $c . "' order by id desc");
+                return  $bc;
+            }
+
+            if($b=='visita-history-main') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("visitcore", "*", "ced='" . $c . "' order by id desc");
+                return  $bc;
+            }
+
+            if($b=='visita-history-cnd') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("autocore a", "a.*,(SELECT CONCAT(a.fecha,'#',a.status)) as fechax", "a.cnd='" . $c . "' order by a.id desc");
+                return  $bc;
+            }
+
+            if($b=='visita-history-truck') {
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $bc = $fxc->bcsearchtwo("autocore a", "a.*,(SELECT CONCAT(a.fecha,'#',a.status)) as fechax", "a.placa='" . $c . "' order by a.id desc");
+                return  $bc;
+            }
+
         }
 
         if($v==3){
             if($a=='visitas') {
                 return $fxc->bcsearchone("visitcore", "*","id='" . $b . "'");
+            }
+            if($a=='autos') {
+                return $fxc->bcsearchone("autocore", "*","id='" . $b . "'");
             }
             if($a=='fotodoc') {
                 return $fxc->bcsearchone("imgcore", "*","idv='" . $b . "' and tp=".$c);
@@ -184,13 +254,36 @@ class fxc
             }
             if($a=='app-cedula') {
                 $date=date('Y-m-d 00:00:00');
-                return $fxc->bcsearchone("visituser a", "a.*,(SELECT count(id) as q FROM visitcore where ced=a.ced and fecha >= '".$date."' and status=1) as qv","a.ced='".$b."'");
+                return $fxc->bcsearchone("visituser a", "a.*,(SELECT count(id) as q FROM visitcore where ced=a.ced and fecha >= '".$date."' and status=1) as qv,(SELECT TIMESTAMPDIFF(DAY , (select max(fecha) as fecha from visitcore where ced='".$b."'), NOW())) as df ","a.ced='".$b."'");
             }
+            if($a=='app-placa') {
+                $date=date('Y-m-d 00:00:00');
+                return $fxc->bcsearchone("truckcore a", "a.*,(SELECT count(id) as q FROM autocore where placa=a.plc and fecha >= '".$date."' and status=1) as qv","a.plc='".$b."'");
+            }
+            if($a=='turnos') {
+                return $fxc->bcsearchone("wman", "*","turno='".$b."'");
+            }
+            if($a=='general') {
+                return $fxc->bcsearchone("options", "*","tp='".$b."'");
+            }
+            if($a=='horas-auto') {
+                return $fxc->bcsearchone("autocore", "*","(fecha BETWEEN '".$c." 00:00:00' AND '".$c." 23:00:00') and placa='".$f."' and cnd='".$g."' and status=".$e." limit ".$d.",1");
+            }
+
         }
 
         if($v==4){
             if($a=='visitas') {
                 return $fxc->bcsearchtree("visitcore","*", "nm='" . $b . "' and ced='".$c."' order by id desc");
+            }
+            if($a=='autos') {
+                return $fxc->bcsearchtree("autocore","*", "placa='" . $b . "' order by id desc");
+            }
+            if($a=='autos-cond') {
+                return $fxc->bcsearchtree("autocore","*", "cnd='" . $b . "' order by id desc");
+            }
+            if($a=='autos-cam') {
+                return $fxc->bcsearchtree("autocore","*", "placa='" . $b . "' order by id desc");
             }
             if($a=='alertas') {
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
@@ -203,6 +296,36 @@ class fxc
                 $date=date('Y-m-d 00:00:00');
                 return $fxc->bcsearchtree("visitcore a join imgcore i on a.idv = i.idv and i.tp=3","a.*,i.path", "a.fecha >='".$date."' order by a.fecha desc");
             }
+            if($a=='app-visitas-auto') {
+                $date=date('Y-m-d 00:00:00');
+                return $fxc->bcsearchtree("autocore a join imgcore i on a.idv = i.idv and i.tp=4","a.*,i.path", "a.fecha >='".$date."' or a.fsal >='".$date."' order by a.fecha desc");
+            }
+            if($a=='app-conductor') {
+                return $fxc->bcsearchtree("truckman","*", "id > 0 order by id desc");
+            }
+            if($a=='turnos') {
+                return $fxc->bcsearchtree("options","*", "tp='turno'");
+            }
+            if($a=='ubicacion') {
+                return $fxc->bcsearchtree("ubicaciones","*", "id>0 order by nloc desc");
+            }
+            if($a=='reporte-visita') {
+
+                $nrp=$fxc->bcsearchone("options","*","tp='n-rep-vs'");
+                $np=$nrp['item']+1;
+                $fxc->bcupdate("options","item=".$np,"tp='n-rep-vs'");
+                return $fxc->bcsearchtree("visitcore","*", " (fecha BETWEEN '".$b." 00:00:00' AND '".$c." 23:59:59') order by fecha desc");
+            }
+            if($a=='reporte-visita-auto') {
+
+                $nrp=$fxc->bcsearchone("options","*","tp='n-rep-auto'");
+                $np=$nrp['item']+1;
+                $fxc->bcupdate("options","item=".$np,"tp='n-rep-auto'");
+                return $fxc->bcsearchtree("autocore","*", " (fecha BETWEEN '".$b." 00:00:00' AND '".$c." 23:59:59') group by cnd,placa") ;
+            }
+            if($a=='loc-filter') {
+                return $fxc->bcsearchtree("ubicaciones","*", "id > 0 order by nloc desc");
+            }
         }
 
         if($v==5){
@@ -214,6 +337,12 @@ class fxc
             }
             if($b=='locations') {
                 return $fxc->bcdel("ubicaciones", "id='" .$c."'");
+            }
+            if($b=='w-man') {
+                return $fxc->bcdel("wman", "id='" .$c."'");
+            }
+            if($b=='w-turno') {
+                return $fxc->bcdel("options", "id='" .$c."'");
             }
         }
 
@@ -228,6 +357,17 @@ class fxc
             if($a=='app-salida') {
                 return $fxc->bcupdate("visitcore","status=2, fsal=NOW()","id=".$b);
             }
+            if($a=='app-salida-auto') {
+
+                if($c==0){$dt='fsal=NOW()';}
+                if($c==1){$dt='fsal=NOW()';}
+                if($c==2){$dt='fecha=NOW()';}
+
+                return $fxc->bcupdate("autocore","status=2, ".$dt,"id=".$b);
+            }
+            if($a=='qr-update') {
+                return $fxc->bcupdate("visituser","vdt=".$c,"ced='".$b."'");
+            }
         }
 
         if($v==50){
@@ -236,18 +376,45 @@ class fxc
                 $c=md5($c);
                 $s= md5($a . $b);
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                return $fxc->bcinsert("webuser"," '".$b."','" . $c . "','".$a."',1,'".$s."',1,NOW(),".$bca['cmp'].",1");
+                return $fxc->bcinsert("webuser"," '".$b."','" . $c . "','".$a."',1,'".$s."',1,NOW(),".$bca['cmp'].",1,'".$e."'");
             }
 
             if($d=='crear-loc') {
                 $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
-                return $fxc->bcinsert("ubicaciones"," '".$a."','" . $b . "','".$b."',1,".$bca['cmp']);
+                return $fxc->bcinsert("ubicaciones"," '".$a."','" . $b . "','".$c."',1,".$bca['cmp']);
             }
 
             if($d=='app-dev') {
                 $bc = $fxc->bcsearchone("ubicaciones", "*", "cmp=" . $c . " and nloc='" . $a . "'");
                 return $fxc->bcinsert("dvccore", " '" . $b . "','" . $a . "',NOW()," . $bc['ga'] . "," . $bc['gb'] . ",1,1,1," . $c . ",1");
             }
+
+            if($d=='crear-personal') {
+
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $fxc->bcdel("wman", "turno='" .$c."' and loc='".$e."' and cmp=".$bca['cmp']);
+                return $fxc->bcinsert("wman"," '".$a."','" . $b . "',1,'".$c."',".time().",".$bca['cmp'].",'".$e."'");
+
+            }
+
+            if($d=='crear-turno') {
+
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $fxc->bcdel("options", "item='" .$a."' and cmp=".$bca['cmp']);
+                return $fxc->bcinsert("options"," '".$a."','turno',1,".$bca['cmp']);
+
+            }
+
+            if($d=='crear-numero-rep') {
+
+                $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
+                $fxc->bcdel("options", "tp='n-rep-vs'  and cmp=".$bca['cmp']);
+                $fxc->bcdel("options", "tp='n-rep-auto' and cmp=".$bca['cmp']);
+                $fxc->bcinsert("options","'".$a."','n-rep-vs',1,".$bca['cmp']);
+                return $fxc->bcinsert("options","'".$b."','n-rep-auto',1,".$bca['cmp']);
+
+            }
+
         }
 
         if($v==1000){
@@ -260,9 +427,13 @@ class fxc
         if($v==1001){
             $bca=$fxc->bcsearchone("webuser","*","ids='" . $_SESSION['us'] . "'");
             $bc=$fxc->shark("visitcore","cmp=".$bca['cmp']." and shk=0",$bca['cmp']);
-            return $bc['q'];
+            if($bc['q']>0) {
+                return $bc['q'];
+            }
+            if($bc['q']==null) {
+                return 0;
+            }
         }
-
 
         if($v==2000){
 
@@ -270,7 +441,6 @@ class fxc
             return $bc['idu'];
 
         }
-
 
     }
 
@@ -292,14 +462,14 @@ class fxc
             $fxc->bcimgin($_POST['nm'], $_POST['ftmp'], $track, 'tmp');
             $ftmp = str_replace(' ', '', $_POST['nm']);
             $ftmp = $track . $ftmp . '-tmp.jpg';
-            $fxc->bcinsert("imgcore", " '" . $ftmp . "',2," . $track . "," . $bc['cmp']);
+            //$fxc->bcinsert("imgcore", " '" . $ftmp . "',2," . $track . "," . $bc['cmp']);
         }
 
         if(!empty($_POST['fdoc'])) {
             $fxc->bcimgin($_POST['nm'], $_POST['fdoc'], $track, 'doc');
             $fdoc = str_replace(' ', '', $_POST['nm']);
             $fdoc = $track . $fdoc . '-doc.jpg';
-            $fxc->bcinsert("imgcore", " '" . $fdoc . "',1," . $track . "," . $bc['cmp']);
+            //$fxc->bcinsert("imgcore", " '" . $fdoc . "',1," . $track . "," . $bc['cmp']);
         }
 
         $a=ucwords(strtolower($a));
@@ -311,18 +481,64 @@ class fxc
 
         $bv = $fxc->bcsearchone("visituser", "count(id) as q", "ced='" . $c . "'");
         if($bv['q']==0){
-            $fxc->bcinsert("visituser", " '" . $a . "','" . $b . "','" . $c . "','".$bc['loc']."',1,'".$bc['cmp']."',".$track);
-            $fxc->bcrfi($_POST['nm'].'-'.$track, $_POST['fbio']);
+            $fxc->bcinsert("visituser", " '" . $a . "','" . $b . "','" . $c . "','".$bc['loc']."',1,'".$bc['cmp']."',".$track.",0");
+            //$fxc->bcrfi($_POST['nm'].'-'.$track, $_POST['fbio']);
         }
 
         $date=date('Y-m-d 00:00:00');
 
         $bvc = $fxc->bcsearchone("visitcore", "count(id) as q", "ced='" . $c . "' and status=1 and fecha >'".$date."'");
         if($bvc['q']==0){
-            $fxc->bcinsert("visitcore", "'" . $a . "','" . $b . "','" . $c . "',NOW(),1,'".$bc['cmp']."','".$h."',".$track.",0,'".$d."',1,'".$bc['loc']."',1,0,'".$j."'");
+            $wm = $fxc->bcsearchone("wman", "*", "turno='" . $i . "'");
+            $fxc->bcinsert("visitcore", "'" . $a . "','" . $b . "','" . $c . "',NOW(),1,'".$bc['cmp']."','".$h."',".$track.",0,'".$d."',1,'".$bc['loc']."',1,0,'".$j."','" . $c . "','".$wm['turno']."','".$wm['nm']."'");
             return true;
         }
         return false;
+
+    }
+
+    function bccoreauto($v,$a,$b,$c,$d,$e,$f,$g){
+
+        $track=time();
+
+        $fxc = new fxc();
+        $bc = $fxc->bcsearchone("dvccore a join company b on a.cmp = b.cmp", "a.*,b.nm", "a.idu='" . $e . "'");
+
+        if(!empty($d)) {
+
+                if($d!='car-core') {
+                    $fxc->bcimgin($a, $d, $track, 'placa');
+                    $fbio = str_replace(' ', '', $a);
+                    $fbio = $track . $fbio . '-placa.jpg';
+                }
+                if($d=='car-core') {
+                    $fbio='car-core-placa.jpg';
+                }
+
+                $bci = $fxc->bcsearchone("imgcore", "*", "idv='" . $track . "'");
+
+                if($bci['id']=="") {
+                    $fxc->bcinsert("imgcore", " '" . $fbio . "',4," . $track . "," . $bc['cmp']);
+                }
+
+        }
+
+
+        $a=ucwords(strtolower($a));
+        $b=strtoupper($b);
+
+        $a=$fxc->qtildes($a);
+        $b=$fxc->qtildes($b);
+
+        $date=date('Y-m-d 00:00:00');
+
+        $bca = $fxc->bcsearchone("autocore", "*", "idv='" . $track . "'");
+
+        if($bca['id']=="") {
+
+            $fxc->bcinsert("autocore", "'" . $a . "','" . $bc['nm'] . "',NOW()," . $c . ",'" . $bc['cmp'] . "','" . $e . "'," . $track . ",NOW(),0,'" . $bc['loc'] . "',1,0,'" . $b . "','".$f."','".$g."'");
+            return true;
+        }
 
     }
 
@@ -352,9 +568,19 @@ class fxc
                 $arrFiltered = array_filter($arrData,function($e)use($searchValue){
 
                     if (
+
                         stripos($e['nm'], $searchValue) !== false ||
                         stripos($e['emp'], $searchValue) !== false ||
                         stripos($e['ced'], $searchValue) !== false ||
+                        stripos($e['cnd'], $searchValue) !== false ||
+                        stripos($e['loc'], $searchValue) !== false ||
+                        stripos($e['ub'], $searchValue) !== false ||
+                        stripos($e['itc'], $searchValue) !== false ||
+                        stripos($e['plc'], $searchValue) !== false ||
+                        stripos($e['tp'], $searchValue) !== false ||
+                        stripos($e['mc'], $searchValue) !== false ||
+                        stripos($e['itc'], $searchValue) !== false ||
+                        stripos($e['placa'], $searchValue) !== false ||
                         stripos($e['fecha'], $searchValue) !== false
 
                     ) {

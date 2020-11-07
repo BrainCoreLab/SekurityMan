@@ -17,9 +17,12 @@
     <link href="assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/authentication/form-1.css" rel="stylesheet" type="text/css" />
+
     <!-- END GLOBAL MANDATORY STYLES -->
     <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css">
     <link rel="stylesheet" type="text/css" href="assets/css/forms/switches.css">
+    <link href="plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="plugins/select2/select2.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -52,14 +55,14 @@
             </ul>
 
             <ul class="navbar-item flex-row ml-md-0 ml-auto">
-                <li class="nav-item align-self-center search-animated">
+               <!-- <li class="nav-item align-self-center search-animated">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search toggle-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <form class="form-inline search-full form-inline search" role="search">
                         <div class="search-bar">
                             <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
                         </div>
                     </form>
-                </li>
+                </li>-->
             </ul>
 
             <ul class="navbar-item flex-row ml-md-auto">
@@ -80,7 +83,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="">
                             <div class="dropdown-item">
-                                <a class="" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Salir</a>
+                                <a class="exit" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Salir</a>
                             </div>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                 <li>
                     <div class="page-header">
 
-                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb" id="main-top">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><span>Visitantes</span></li>
@@ -140,10 +143,19 @@
                 <div class="row layout-top-spacing w-table-main">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                         <div class="widget widget-table-two">
-
-                            <div class="widget-heading">
-                                <h5 class="title-core"></h5>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="widget-heading">
+                                        <h5 class="title-core"></h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-2 fx-filtro-page">
+                                    <select class="form-control filtro-sel"></select>
+                                </div>
                             </div>
+
+
 
                             <div class="widget-content">
                                 <div class="table-responsive bc-table"></div>
@@ -153,6 +165,15 @@
                 </div>
 
                 <div class="row layout-spacing w-history-main">
+
+                        <div class="col-lg-8 mt-4">
+                            <div class="widget-heading">
+                                <h5 class="title-core"></h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mt-4">
+                            <button class="btn btn-info mb-2 btn-sm float-right go-back-history-main">Regresar</button>
+                        </div>
 
                     <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
 
@@ -176,17 +197,11 @@
 
                         <div class="education layout-spacing ">
                             <div class="widget-content widget-content-area">
-                                <h3 class="">Documento | Termica | Biometrica</h3>
+                                <h3 class="">Documento </h3>
                                 <div id="fperfil" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active bccropped">
                                             <img class="d-block w-100 fdoc" src="https://skm.eman.live/ftbox/ntfoto.jpg" alt="">
-                                        </div>
-                                        <div class="carousel-item bccropped">
-                                            <img class="d-block w-100 fterm" src="https://skm.eman.live/ftbox/ntfoto.jpg" alt="">
-                                        </div>
-                                        <div class="carousel-item bccropped">
-                                            <img class="d-block w-100 fbio" src="https://skm.eman.live/ftbox/nbfoto.jpg" alt="">
                                         </div>
                                     </div>
                                     <a class="carousel-control-prev" href="#fperfil" role="button" data-slide="prev">
@@ -217,6 +232,96 @@
 
                 </div>
 
+                <div class="row layout-spacing w-history-main-vs" >
+
+                    <div class="col-lg-8 mt-4">
+                        <div class="widget-heading">
+                            <h5 class="vs-nm"></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4">
+                        <button class="btn btn-info mb-2 btn-sm float-right go-back-history-main-vs">Regresar</button>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-7 col-sm-12 layout-top-spacing">
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <div class="timeline-alter h-visitas-vs"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row layout-spacing w-history-main-auto" >
+
+                    <div class="col-lg-8 mt-4">
+                        <div class="widget-heading">
+                            <h5 class="title-core"></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4">
+                        <button class="btn btn-info mb-2 btn-sm float-right go-back-history-main-auto">Regresar</button>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Vehiculo y Ultimo Conductor</h3>
+                                </div>
+                                <div class="user-info-list">
+                                    <div class="">
+                                        <ul class="contacts-block list-unstyled">
+                                            <li class="contacts-block__item placa-nm"></li>
+                                            <li class="contacts-block__item emp"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Placa</h3>
+                                <div id="fperfilauto" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active bccropped">
+                                            <img class="d-block w-100 fdoc-vh" src="https://skm.eman.live/ftbox/ntfoto.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#fperfilauto" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#fperfilauto" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Historial de Entradas y Salidas del Vehiculo</h3>
+                                <div class="timeline-alter h-visitas-auto">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <div class="row layout-spacing w-user-main">
 
                     <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
@@ -224,7 +329,7 @@
                         <div class="user-profile layout-spacing">
                             <div class="widget-content widget-content-area">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <h3 class="title-cr-form">Usuarios</h3>
+                                    <h3 class="title-cr-form text-center"></h3>
                                 </div>
                                 <div class="user-info-list mx-auto">
                                     <div class="form-form fix-w-100-p">
@@ -244,6 +349,11 @@
                                                     <div id="password-field-b" class="field-wrapper input mb-3">
                                                         <input id="password-b" name="password" type="password" class="form-control ps-b-c password" placeholder="Confirmar Password">
                                                     </div>
+
+                                                    <div  class="field-wrapper input mb-2">
+                                                        <select class="form-control loc-sel"></select>
+                                                    </div>
+
                                                     <div class="d-sm-flex justify-content-between">
                                                         <div class="field-wrapper toggle-pass">
                                                             <p class="d-inline-block">Ver Password</p>
@@ -344,8 +454,371 @@
 
                 </div>
 
+                <div class="row layout-spacing w-reporte">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 layout-top-spacing fm-vis-print">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="title-rp-form fx-mg-left">Reporte de Visitantes</h3>
+                                </div>
+                                <div class="user-info-list mx-auto">
+                                    <div class="form-form fix-w-100-p">
+                                        <div class="form-form-wrap fx-form-user fx-mx-width-input">
+                                            <form>
+                                                <div class="form">
+                                                    <div  class="field-wrapper input mb-2">
+                                                        <select class="form-control turno"></select>
+                                                    </div>
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="f-inicial" placeholder="Fecha Inicial">
+                                                    </div>
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="f-final" placeholder="Fecha Final">
+                                                    </div>
+
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="verif-ps" placeholder="Verificador">
+                                                    </div>
+
+                                                    <div class="d-sm-flex justify-content-between">
+                                                        <div class="field-wrapper">
+                                                            <button type="button" class="btn btn-primary reporte-go" value="">Generar Reporte</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 rep-vis-print fx-center-img">
+
+                        <div class="row mb-4">
+                            <div class="col-10"></div>
+                            <div class="col-2"> <button class="btn btn-primary mt-3 print-bt print-none"> <i class="fa fa-print"></i> Imprimir Reporte</button></div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td>
+                                    <p><small>R02-PT-11</small></p>
+                                    <p><small>Nombre:Entrada y Salida de Colaboradores, Clientes y Visitantes</small></p>
+                                </td>
+                                <td><img src="ftbox/print/logo_ac.png" class="fx-mx-width-500"></td>
+                                <td class="fx-trigth">
+                                    <p><small>Pagina</small></p>
+                                    <p><small>Revision 3</small></p>
+                                    <p><small>Entrada en Vigencia: 01/04/2020</small></p>
+                                    <p><small>Vigencia hasta: 01/04/2025</small></p>
+                                </td>
+                            </table>
+                        </div>
+
+                        <div class="row mb-3">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td><h3>Entrada y Salida de Colaboradores, Clientes y Visitantes</h3></td>
+                                <td><h3 class="text-danger text-right n-rep"></h3></td>
+                            </table>
+                        </div>
+                        <div class="row mb-3">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td><p class="date-rep"></p></td>
+                                <td><p class="turno-rep"> </p></td>
+                                <td><p class="sg-rep"> </p></td>
+                                <td><p class="ver-rep"></p></td>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover mb-4 f-print-data-tablet-th">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>N de Cedula</th>
+                                        <th>Hora de Entrada</th>
+                                        <th>Hora de Salida</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="rep-list f-print-data-tablet">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row layout-spacing w-reporte-auto">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 layout-top-spacing fm-vis-print-auto">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="title-rp-form fx-mg-left">Reporte de Vehiculos</h3>
+                                </div>
+                                <div class="user-info-list mx-auto">
+                                    <div class="form-form fix-w-100-p">
+                                        <div class="form-form-wrap fx-form-user fx-mx-width-input">
+                                            <form>
+                                                <div class="form">
+                                                    <div  class="field-wrapper input mb-2">
+                                                        <select class="form-control turno-auto"></select>
+                                                    </div>
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="f-inicial-auto" placeholder="Fecha Inicial">
+                                                    </div>
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="f-final-auto" placeholder="Fecha Final">
+                                                    </div>
+
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input   type="text" class="form-control" id="verif-ps-auto" placeholder="Verificador">
+                                                    </div>
+
+                                                    <div class="d-sm-flex justify-content-between">
+                                                        <div class="field-wrapper">
+                                                            <button type="button" class="btn btn-primary reporte-go-auto" value="">Generar Reporte</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 rep-vis-print-auto fx-center-img">
+
+                        <div class="row mb-4">
+                            <div class="col-10"></div>
+                            <div class="col-2"> <button class="btn btn-primary mt-3 print-bt-auto print-none"> <i class="fa fa-print"></i> Imprimir Reporte</button></div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td>
+                                    <p><small>R03-PT-11</small></p>
+                                    <p><small>Nombre:Movimiento de vehiculos de la empresa</small></p>
+                                </td>
+                                <td><img src="ftbox/print/logo_ac.png" class="fx-mx-width-500"></td>
+                                <td class="fx-trigth">
+                                    <p><small>Pagina</small></p>
+                                    <p><small>Revision 2</small></p>
+                                    <p><small>Entrada en Vigencia: 15/04/2015</small></p>
+                                    <p><small>Vigencia hasta: 15/04/2020</small></p>
+                                </td>
+                            </table>
+                        </div>
+
+                        <div class="row mb-3">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td><h3>Movimiento de vehiculos de la empresa</h3></td>
+                                <td><h3 class="text-danger text-right n-rep"></h3></td>
+                            </table>
+                        </div>
+                        <div class="row mb-3">
+                            <table border="0" class="color-ac f-print-data" width="100%">
+                                <td><p class="date-rep"></p></td>
+                                <td><p class="turno-rep"> </p></td>
+                                <td><p class="sg-rep"> </p></td>
+                                <td><p class="ver-rep"></p></td>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover mb-4 f-print-data-tablet-th">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre de conductor</th>
+                                        <th>N de Placa</th>
+                                        <th>Hora de Salida</th>
+                                        <th>Hora de Regreso</th>
+                                        <th>Hora de Salida</th>
+                                        <th>Hora de Regreso</th>
+                                        <th>Hora de Salida</th>
+                                        <th>Hora de Regreso</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="rep-list-auto f-print-data-tablet">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row layout-spacing w-personal-main">
+
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="title-cr-form">Personal de Seguidad</h3>
+                                </div>
+                                <div class="user-info-list mx-auto">
+                                    <div class="form-form fix-w-100-p">
+                                        <div class="form-form-wrap fx-form-user">
+                                            <form>
+                                                <div class="form">
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input  name="username" type="text" class="form-control ps-us-c" placeholder="Nombre del Seguridad">
+                                                    </div>
+
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input  name="username" type="text" class="form-control id-us-c" placeholder="ID del Seguridad">
+                                                    </div>
+
+                                                    <div  class="field-wrapper input mb-2">
+                                                        <select class="form-control turno-sg"></select>
+                                                    </div>
+
+                                                    <div  class="field-wrapper input mb-2">
+                                                        <select class="form-control loc-sel-ps"></select>
+                                                    </div>
+
+                                                    <div class="field-wrapper" id="warning-ps"></div>
+                                                    <div class="field-wrapper">
+                                                        <button type="button" class="btn btn-primary save-go-c-ps" value="">Guardar</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="widget widget-table-two">
+
+                            <div class="widget-heading">
+                                <h5 class="title-core-ps"></h5>
+                            </div>
+
+                            <div class="widget-content">
+                                <div class="table-responsive h-pers"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row layout-spacing w-turno-main">
+
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="title-tn-form"></h3>
+                                </div>
+                                <div class="user-info-list mx-auto">
+                                    <div class="form-form fix-w-100-p">
+                                        <div class="form-form-wrap fx-form-user">
+                                            <form>
+                                                <div class="form">
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <input  name="username" type="text" class="form-control ps-tn-c" placeholder="Turno de Seguridad">
+                                                    </div>
+
+                                                    <div class="field-wrapper" id="warning-tn"></div>
+                                                    <div class="field-wrapper">
+                                                        <button type="button" class="btn btn-primary save-go-c-tn" value="">Guardar</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="widget widget-table-two">
+
+                            <div class="widget-heading">
+                                <h5 class="title-core-tn"></h5>
+                            </div>
+
+                            <div class="widget-content">
+                                <div class="table-responsive h-turno"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row layout-spacing w-general-main">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="title-gen-form text-center"></h3>
+                                </div>
+                                <div class="user-info-list mx-auto">
+                                    <div class="form-form fix-w-100-p">
+                                        <div class="form-form-wrap fx-form-user">
+                                            <form>
+                                                <div class="form">
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <label for="rvs">Número Reporte Visita</label>
+                                                        <input  name="username" type="text" class="form-control n-rep-vs" id="rvs" placeholder="Número Reporte Visita">
+
+                                                    </div>
+                                                    <div  class="field-wrapper input mb-3">
+                                                        <label for="rauto">Número Reporte Autos</label>
+                                                        <input  name="username" type="text" class="form-control n-rep-auto" id="rauto" placeholder="Número Reporte Autos">
+
+                                                    </div>
+
+                                                    <div class="field-wrapper" id="warning-gen"></div>
+                                                    <div class="field-wrapper">
+                                                        <button type="button" class="btn btn-primary save-go-c-gen" value="">Guardar</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-            <div class="footer-wrapper">
+            <div class="footer-wrapper print-none">
                 <div class="footer-section f-section-1">
                     <p class="">Copyright © 2020 <a href="javascript:void(0)">Sekurity Man</a>, All rights reserved.</p>
                 </div>
@@ -371,12 +844,16 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="plugins/table/datatable/datatables.js"></script>
+    <script src="plugins/select2/select2.min.js"></script>
+    <script src="plugins/flatpickr/flatpickr.js"></script>
+
     <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
     <script src="plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
     <script src="plugins/table/datatable/button-ext/jszip.min.js"></script>
     <script src="plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
     <script src="plugins/table/datatable/button-ext/buttons.print.min.js"></script>
     <script src="plugins/highlight/highlight.pack.js"></script>
+    <script src="plugins/flatpickr/flatpickr.js"></script>
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
